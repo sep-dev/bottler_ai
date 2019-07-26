@@ -10,7 +10,7 @@ import io, base64
 graph = tf.get_default_graph()
 
 class Photo(models.Model):
-    image = models.ImageField(upload_to='photos')
+    image = models.ImageField(upload_to='images')
 
     IMAGE_SIZE = 224 # 画像サイズ
     # MODEL_FILE_PATH = './bottler/ml_models/vgg16_transfer.h5' # モデルファイル
@@ -42,3 +42,9 @@ class Photo(models.Model):
             ## print(self.classes[predicted], percentage)
             # return self.classes[predicted], percentage
             return 'a', 10
+
+    def image_src(self):
+        with self.image.open() as img:
+            base64_img = base64.b64encode(img.read()).decode()
+
+            return 'data:' + img.file.content_type + ';base64,' + base64_img

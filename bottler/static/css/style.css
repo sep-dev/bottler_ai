@@ -1,0 +1,21 @@
+.table {
+    /* background-color:  #98d98e; */
+    width: 80%;
+    padding: 20px;
+}
+.wd20 {
+    width: 20%;
+}
+.wd30 {
+    width: 30%;
+}
+.b1 {
+    background-color:  #e4de8a;
+    padding-left: 20px;
+    height: 40px;
+    text-align:left;
+    font-size: 18pt
+}
+.non-border {
+    border-style: none;
+}

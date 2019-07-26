@@ -18,6 +18,7 @@ from django.urls import include, path
 # import bottler.views as bottler
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # path('admin/', admin.site.urls),
+    path('', include('bottler.urls')),
     path('bottler/', include('bottler.urls')),
 ]

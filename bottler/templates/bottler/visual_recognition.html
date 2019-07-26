@@ -1,0 +1,20 @@
+{% extends 'bottler/base.html' %}
+{% block title %}ボトラーAI{% endblock %}
+
+{% block content %}
+<div>
+    <h4 class="mt-4 mb-5 border-bottom">IBM Visual Recognitionでは以下のように判定されました。</h4>
+
+    <table class='table'>
+        <tbody>
+            {% for class in vr_classes %}
+            <tr>
+                <td>{{ class.class }}</td>
+                <td>{{ class.score }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'bottler:index' %}" class="btn btn-primary">画像選択メニューに戻る</a>
+</div>
+{% endblock %}

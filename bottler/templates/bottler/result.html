@@ -8,25 +8,24 @@
     <table class='table'>
         <tbody>
             <tr>
-                <td>ファイル名</td>
-                <td>{{ photo_name }}</td>
+                <td class="wd30">判定が正常に動作したか</td>
+                <td>{{ state }}</td>
+            </tr>
+            <tr>
+                <td>判定した結果は</td>
+                <td>{{ label }}　でした。</td>
             </tr>
             <tr>
                 <td>画像ファイル</td>
-                <td><img class='preview-img' src={{ photo_data }} ></img></td>
-                </tr>
-            <tr>
-                <td>ボトル判定</td>
-                <td>{{ predicted }}</td>
+                <td><img class='preview-img' src={{ photo_data }} style="width:40%;"></img></td>
             </tr>
             <tr>
-                <td>推定確率</td>
-                <td>{{ percentage }} %</td>
+                <td>推定される確率は</td>
+                <td>{{ score }} %　です。</td>
             </tr>
         </tbody>
     </table>
 
-    <a href = "{% url 'bottler:index' %}" class="btn btn-primary">画像選択メニューに戻る</a>
-
+    <a href="{% url 'bottler:index' %}" class="btn btn-primary">画像選択メニューに戻る</a>
 </div>
 {% endblock %}

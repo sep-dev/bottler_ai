@@ -16,7 +16,20 @@
             </div>
         </div>
         <button type="submit" class="btn btn-primary">推定する</button>
-
+    </form>
+    <h4 class="mt-4 mb-5 border_bottom">IBM Visual Recognition</h4>
+    <p>画像を選択</p>
+    <form action="{% url 'bottler:recog' %}" method="post" class="form" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="custom-file">
+                {{ form.image }}
+                <label class="custom-file-label" for="customFile">
+                    推定したいファイルを選択してください
+                </label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">推定する</button>
     </form>
 </div>
 {% endblock %}
