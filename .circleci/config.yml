@@ -28,6 +28,9 @@ jobs:
           name: Install rsync
           command: |
             sudo apt update && sudo apt install -y rsync
+      - run:
+          name: Install dependencies
+          command: pip install -r requirements.txt
  
       - deploy:
           name: Start master deploy
