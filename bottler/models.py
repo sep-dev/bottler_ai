@@ -1,13 +1,13 @@
 from django.db import models
 
-import numpy as np
-import tensorflow as tf
-from tensorflow import keras
-from tensorflow.keras.models import load_model
+#import numpy as np
+#import tensorflow as tf
+#from tensorflow import keras
+#from tensorflow.keras.models import load_model
 # from PIL import Image
 import io, base64
 
-graph = tf.get_default_graph()
+#graph = tf.get_default_graph()
 
 class Photo(models.Model):
     # 保存先ディレクトリの指定
@@ -25,8 +25,8 @@ class Photo(models.Model):
     # 引数から画像ファイルを参照して読み込む
     def predict(self):
         model = None
-        global graph
-        with graph.as_default():
+    #    global graph
+    #    with graph.as_default():
             # model = load_model(self.MODEL_FILE_PATH)
             
             # img_data = self.image.read()
@@ -46,7 +46,8 @@ class Photo(models.Model):
 
             ## print(self.classes[predicted], percentage)
             # return self.classes[predicted], percentage
-            return 'a', 10
+            # return 'a', 10
+        return 'a', 10
 
     def image_src(self):
         with self.image.open() as img:
