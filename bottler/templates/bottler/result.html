@@ -3,7 +3,9 @@
 
 {% block content %}
 <div>
-    <h4 class="mt-4 mb-5 border-bottom">ボトル判定推定結果</h4>
+    <h4 class="mt-4 mb-5 border-bottom">AIメーカーでは以下のように判定されました。</h4>
+
+    <h1 class="msr_h104">アップロードした画像は{{ score }} %の確率で【{{ label }}】です。</h1>
 
     <table class='table'>
         <tbody>
@@ -17,7 +19,7 @@
             </tr>
             <tr>
                 <td>画像ファイル</td>
-                <td><img class='preview-img' src={{ photo_data }} style="width:40%;"></img></td>
+                <td><img class='preview-img' src={{ base64 }} style="width:40%;"></img></td>
             </tr>
             <tr>
                 <td>推定される確率は</td>

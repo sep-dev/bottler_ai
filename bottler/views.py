@@ -5,17 +5,21 @@ from django.shortcuts import render
 from django.template import loader
 from .forms import PhotoForm
 from .models import Photo
+from django.conf import settings
+from .consts import *
 
 import pprint
 import requests
 import json
-import io 
+import io
+import os
 
 from common import utils
 from PIL import Image
 
 basicConfig(level=DEBUG)
 logger = getLogger(__name__)
+
 
 def index(request):
     """
@@ -55,7 +59,7 @@ def predict(request):
 
     context = {
         'photo_name': 'StabName',
-        'photo_data': base64,
+        'base64': base64,
         'predicted': 'OK',
         'percentage': '80',
         'state': result['state'],
@@ -80,21 +84,51 @@ def recog(request):
     if not form.is_valid():
         raise ValueError('Formが不正です')
 
-    photo = Photo(image=form.cleaned_data['image'])
-    # photo.save()
+    model = request.POST.get('model')
 
-    # IBM Visual Recognition
-    response = utils.VisualRecognitionRequest('dummy')
+    if model == '1':
+        model = VISUAL_RECOGNITION_MODEL[model]
+        # model = 'DefaultCustomModel_592439278'
+    else:
+        model = VISUAL_RECOGNITION_MODEL['0']
+        # model = 'default'
+
+    photo = Photo(image=form.cleaned_data['image'])
+    photo.save()
+
+    # file_path = photo.image.url
+    file_path = photo.image.name
+    file_path = settings.MEDIA_URL + file_path
+
+    # 画像ファイルをbase64で受け取る
+    base64 = Photo(image=form.cleaned_data['image'])
+    base64 = base64.image_src()
+
+    # IBM Visual Recognition (FILE)
+    path = file_path.lstrip('/')
+    # path = "media/images/005_1res6jA.png"
+    response = utils.VisualRecognitionRequestFile(path, model)
+
+    # IBM Visual Recognition (URL)
+    # dummy = 'dummy'
+    # response = utils.VisualRecognitionRequest(dummy, model)
     vr_classes = utils.VisualRecognitionResponse(response)
 
     template = loader.get_template('bottler/visual_recognition.html')
 
+    photo.delete()
+    # os.remove(settings.BASE_DIR + file_path)
+
     context = {
         'vr_classes': vr_classes,
+        'file_path': file_path,
+        'photo_obj': photo,
+        'base64': base64,
     }
     # logger.debug(context)
 
     return HttpResponse(template.render(context, request))
+
 
 def hello(request):
     return HttpResponse("Hello World!")

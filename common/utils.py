@@ -1,10 +1,8 @@
 from logging import basicConfig, getLogger, DEBUG
 from django.http import HttpResponse
-import requests
-
-import json
-
 from watson_developer_cloud import VisualRecognitionV3
+import requests
+import json
 
 basicConfig(level=DEBUG)
 logger = getLogger(__name__)
@@ -86,7 +84,7 @@ def AiMakerResponse(json):
     return result
 
 
-def VisualRecognitionRequest(url):
+def VisualRecognitionRequest(url, model):
 
     logger.debug('VisualRecognitionRequest')
     # VisualRecognitionのWebAPIから取得したデータを返却する
@@ -99,17 +97,106 @@ def VisualRecognitionRequest(url):
 
     classes_result = visual_recognition.classify(
         url=url,
-        classifier_ids=['default'],
+        classifier_ids=[model],
+        # classifier_ids=['DefaultCustomModel_592439278','default'],
         hreshold='0.6',
         accept_language='ja').get_result()
     # print(json.dumps(classes_result, ensure_ascii=False, indent=2))
 
     return classes_result
 
+def VisualRecognitionRequestFile(path, model):
+
+    logger.debug('VisualRecognitionRequestFile')
+    # VisualRecognitionのWebAPIから取得したデータを返却する
+
+    visual_recognition = VisualRecognitionV3(
+        '2018-03-19',
+        iam_apikey='-5QqrsgPmt-ZGZINt_4rglIl6B-KpgvnCt5ibiNh5v31')
+
+    with open(path, 'rb') as images_file:
+        classes = visual_recognition.classify(
+            images_file=images_file,
+            classifier_ids=[model],
+            # classifier_ids=['DefaultCustomModel_592439278','default'],
+            threshold='0.6',
+            accept_language='ja').get_result()
+
+        # print(json.dumps(classes, indent=2))
+
+        return classes
+
 
 def VisualRecognitionResponse(response):
     logger.debug('VisualRecognitionResponse')
-    classes = ''
+
+    # {
+    # "images": [
+    #     {
+    #     "classifiers": [
+    #         {
+    #         "classifier_id": "default",
+    #         "name": "default",
+    #         "classes": [
+    #             {
+    #             "class": "diet (food)",
+    #             "score": 0.571,
+    #             "type_hierarchy": "/food/diet (food)"
+    #             },
+    #             {
+    #             "class": "food",
+    #             "score": 0.571
+    #             },
+    #             {
+    #             "class": "fruit",
+    #             "score": 0.825
+    #             },
+    #             {
+    #             "class": "banana",
+    #             "score": 0.518,
+    #             "type_hierarchy": "/fruit/banana"
+    #             },
+    #             {
+    #             "class": "Granny Smith",
+    #             "score": 0.5,
+    #             "type_hierarchy": "/fruit/pome/apple/eating apple/Granny Smith"
+    #             },
+    #             {
+    #             "class": "eating apple",
+    #             "score": 0.64
+    #             },
+    #             {
+    #             "class": "apple",
+    #             "score": 0.655
+    #             },
+    #             {
+    #             "class": "pome",
+    #             "score": 0.669
+    #             },
+    #             {
+    #             "class": "Golden Delicious",
+    #             "score": 0.5,
+    #             "type_hierarchy": "/fruit/pome/apple/eating apple/Golden Delicious"
+    #             },
+    #             {
+    #             "class": "olive color",
+    #             "score": 0.942
+    #             },
+    #             {
+    #             "class": "lemon yellow color",
+    #             "score": 0.9
+    #             }
+    #         ]
+    #         }
+    #     ],
+    #     "source_url": "https://watson-developer-cloud.github.io/doc-tutorial-downloads/visual-recognition/fruitbowl.jpg",
+    #     "resolved_url": "https://watson-developer-cloud.github.io/doc-tutorial-downloads/visual-recognition/fruitbowl.jpg"
+    #     }
+    # ],
+    # "images_processed": 1,
+    # "custom_classes": 0
+    # }
+    classes = {}
 
     for images in response['images']:
         for classifiers in images['classifiers']:

@@ -2,17 +2,29 @@
 {% block title %}ボトラーAI{% endblock %}
 
 {% block content %}
+
+{% load multiplication %}
+
 <div>
     <h4 class="mt-4 mb-5 border-bottom">IBM Visual Recognitionでは以下のように判定されました。</h4>
 
+
+    {% for class in vr_classes %}
+    <h1 class="msr_h104">アップロードした画像は{{ class.score|multi:100 }} %の確率で【{{ class.class }}】です。</h1>
+    {% endfor %}
+
     <table class='table'>
         <tbody>
-            {% for class in vr_classes %}
             <tr>
-                <td>{{ class.class }}</td>
-                <td>{{ class.score }}</td>
+                <td class="wd30">画像ファイル(アップロード先)</td>
+                <td>
+                    {{ file_path }}
+                </td>
             </tr>
-            {% endfor %}
+            <tr>
+                <td>画像ファイル</td>
+                    <td><img class='preview-img' src={{ base64 }} style="width:40%;"></img></td>
+                </tr>
         </tbody>
     </table>
     <a href="{% url 'bottler:index' %}" class="btn btn-primary">画像選択メニューに戻る</a>
