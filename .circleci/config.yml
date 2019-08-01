@@ -25,6 +25,10 @@ jobs:
           command: |
             ssh-keyscan ${HOST_NAME} >> ~/.ssh/known_hosts
       - run:
+          name: pip install requirements.txt
+          command: |
+            sudo pip install -r requirements.txt
+      - run:
           name: collect static
           command: |
             python manage.py collectstatic
