@@ -31,7 +31,7 @@ jobs:
       - run:
           name: collect static
           command: |
-            python manage.py collectstatic
+            python manage.py collectstatic --noinput
       - run:
           name: Install rsync
           command: |
