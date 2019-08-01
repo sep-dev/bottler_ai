@@ -3,7 +3,7 @@
 
 {% block content %}
 <div>
-    <h3 class="mt-4 mb-5 border_bottom">AIメーカー</h3>
+    <h3 class="mt-4 mb-5 border_bottom">AIメーカーへのリクエスト</h3>
 
     <form action="{% url 'bottler:predict' %}" method="post" class="form" enctype="multipart/form-data">
         {% csrf_token %}
@@ -30,8 +30,7 @@
     <!-- -------------------- -->
 
     <h3 class="mt-4 mb-5 border_bottom">
-        IBM Visual Recognition
-        
+        IBM Visual Recognitionへのリクエスト
     </h3>
     
 
