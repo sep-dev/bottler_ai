@@ -25,6 +25,10 @@ jobs:
           command: |
             ssh-keyscan ${HOST_NAME} >> ~/.ssh/known_hosts
       - run:
+          name: collect static
+          command: |
+            python manage.py collectstatic
+      - run:
           name: Install rsync
           command: |
             sudo apt update && sudo apt install -y rsync
