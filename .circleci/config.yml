@@ -33,6 +33,10 @@ jobs:
           command: |
             python manage.py collectstatic --noinput
       - run:
+          name: migrate
+          command: |
+            python manage.py migrate
+      - run:
           name: Install rsync
           command: |
             sudo apt update && sudo apt install -y rsync
