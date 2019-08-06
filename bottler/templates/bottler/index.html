@@ -3,6 +3,24 @@
 
 {% block content %}
 <div>
+
+
+    <table class="table mg-top20">
+        <thead class="thead-lignt">
+            <tr>
+                <th>Name</th>
+                <th>Link</th>
+            </tr>
+        </thead>
+        <tr>
+            <td>mkaneml5.index</td>
+            <td><a href="https://mkaneml5.se-project.co.jp/index.html">mkaneml5.index</a></td>
+        </tr>
+        <tr>
+            <td>tensorflowjs.index</td>
+            <td><a href="https://mkaneml5.se-project.co.jp/tensorflowjs/index.html">tensorflowjs.index</a></td>
+        </tr>
+    </table>
     <h3 class="mt-4 mb-5 border_bottom">AIメーカーへのリクエスト</h3>
 
     <form action="{% url 'bottler:predict' %}" method="post" class="form" enctype="multipart/form-data">
@@ -20,19 +38,25 @@
     </form>
 
     <table class="table mg-top20">
-            <thead class="thead-lignt">
-              <tr><th>Name</th><th>Link</th></tr>
-            </thead>
-            <tr><td>詳細</td><td><a href="https://aimaker.io/image/classification/detail/id/3673">リンク</a></td></tr>
-          </table>
-    
+        <thead class="thead-lignt">
+            <tr>
+                <th>Name</th>
+                <th>Link</th>
+            </tr>
+        </thead>
+        <tr>
+            <td>詳細</td>
+            <td><a href="https://aimaker.io/image/classification/detail/id/3673">リンク</a></td>
+        </tr>
+    </table>
+
 
     <!-- -------------------- -->
 
     <h3 class="mt-4 mb-5 border_bottom">
         IBM Visual Recognitionへのリクエスト
     </h3>
-    
+
 
     <form action="{% url 'bottler:recog' %}" method="post" class="form" enctype="multipart/form-data">
         {% csrf_token %}
@@ -58,10 +82,18 @@
     </form>
 
     <table class="table mg-top20">
-            <thead class="thead-lignt">
-              <tr><th>Name</th><th>Link</th></tr>
-            </thead>
-            <tr><td>詳細</td><td><a href="https://cloud.ibm.com/services/watson-vision-combined/crn:v1:bluemix:public:watson-vision-combined:us-south:a%2f342b4ac190994fcc9c24311e68137d67:406f51eb-c348-4769-a8c7-94339c524be2::">リンク</a></td></tr>
-          </table>
+        <thead class="thead-lignt">
+            <tr>
+                <th>Name</th>
+                <th>Link</th>
+            </tr>
+        </thead>
+        <tr>
+            <td>詳細</td>
+            <td><a
+                    href="https://cloud.ibm.com/services/watson-vision-combined/crn:v1:bluemix:public:watson-vision-combined:us-south:a%2f342b4ac190994fcc9c24311e68137d67:406f51eb-c348-4769-a8c7-94339c524be2::">リンク</a>
+            </td>
+        </tr>
+    </table>
 </div>
 {% endblock %}
