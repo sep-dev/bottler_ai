@@ -11,7 +11,7 @@ jobs:
       
     branches:
       only:
-        - master
+        - develop
 
     steps:
       - checkout
@@ -43,7 +43,7 @@ jobs:
       - deploy:
           name: Start master deploy
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            if [ "${CIRCLE_BRANCH}" == "develop" ]; then
                 rsync -rlOtcv --delete --exclude='.git' --exclude='.circleci' ./ ${USER_NAME}@${HOST_NAME}:/var/www/bottler-ai/
             fi
       # - run:
