@@ -17,7 +17,7 @@ watson-developer-cloud = "==2.10.1"
 Django = "==2.2.3"
 Keras-Applications = "==1.0.8"
 Keras-Preprocessing = "==1.1.0"
-Pillow = "==6.1.0"
+Pillow = "==6.2.0"
 
 [requires]
 python_version = "3.7"
